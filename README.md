@@ -2,17 +2,24 @@
 
 InvoiceFlow is a Python business-automation application that turns PDF invoices into structured, validated financial records. It is designed as a practical portfolio project for small-business accounts payable workflows.
 
-## Planned capabilities
-- Upload text-based PDF invoices (single or batch)
-- Extract invoice metadata and line-item text
-- Validate required fields and reconcile totals
-- Flag likely duplicate invoices for human review
-- Store records locally in SQLite
-- Explore spending by vendor and month
-- Export structured records to Excel and CSV
-- Provide processing status and actionable errors
+## Implemented
+- Text-based PDF reading with clear invalid/empty-file errors and scanned-page warnings
+- Rule-based extraction of vendor, invoice number, invoice/due dates, currency, subtotal, tax and total
+- Extraction coverage score to guide human review
+- Required-field, positive-total, date-order and subtotal-plus-tax validation
+- Duplicate candidate detection by file SHA-256 and normalized vendor/invoice number
+- SQLite vendor/invoice schema and Streamlit application shell
+- Unit tests for parser, validation and duplicate detection
 
-> **Important:** InvoiceFlow is a decision-support and data-entry aid, not accounting or tax advice. Extracted values must be reviewed before being used for payment or statutory reporting. OCR for scanned PDFs will be added in a later phase.
+## Planned next
+- Batch upload and persistence workflow
+- OCR support for image-only/scanned invoices
+- Review-and-correct interface
+- Vendor and expense analytics
+- Excel/CSV exports and downloadable reports
+- End-to-end tests and deployment guide
+
+> **Important:** InvoiceFlow is a decision-support and data-entry aid, not accounting or tax advice. Extracted values must be reviewed before payment or statutory reporting. Rule-based extraction is layout-dependent; OCR is not yet implemented.
 
 ## Technology
 Python, Streamlit, Pandas, pdfplumber, SQLAlchemy, SQLite, Plotly, openpyxl, pytest.
@@ -23,8 +30,8 @@ Python, Streamlit, Pandas, pdfplumber, SQLAlchemy, SQLite, Plotly, openpyxl, pyt
 3. Copy `.env.example` to `.env` if you want to customize local settings.
 4. Run: `streamlit run app.py`
 
-## Project status
-Phase 1: foundation and application shell. Extraction, validation, analytics, exports and tests will be implemented in subsequent phases.
+## Run tests
+`pytest -q`
 
 ## Privacy
-This initial version is designed for local execution. Do not upload confidential customer invoices to a public repository. Sample documents must be synthetic or appropriately licensed and anonymized.
+This application is designed for local execution. Do not commit real customer invoices, credentials, or confidential financial information. Use synthetic or appropriately licensed and anonymized sample documents in the public repository.
