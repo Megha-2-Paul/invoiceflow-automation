@@ -18,7 +18,7 @@ from src.validation.rules import validate_invoice
 
 def normalize_vendor_name(value: str) -> str:
     """Normalize vendor names for duplicate matching."""
-    return re.sub(r"\s+", " ", value).strip().casefold().strip().casefold()
+    return re.sub(r"\s+", " ", value).strip().casefold()
 
 
 def extract_invoice_record(filename: str, file_bytes: bytes) -> dict[str, Any]:
