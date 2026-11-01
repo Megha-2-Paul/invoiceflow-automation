@@ -37,7 +37,7 @@ class Invoice(Base):
     vendor_id: Mapped[int | None] = mapped_column(
         ForeignKey("vendors.id"), nullable=True, index=True
     )
-    invoice_number: Mapped[str] = mapped_column(String(100), index=True)
+    invoice_number: Mapped[str | None] = mapped_column(String(100), index=True, nullable=True)
     invoice_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     due_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     currency: Mapped[str] = mapped_column(String(3), default="USD")
