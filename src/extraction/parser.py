@@ -57,13 +57,13 @@ def parse_invoice_text(text: str) -> dict[str, Any]:
         return _parse_amount(raw)
 
     subtotal = amount([
-        r"(?:sub\\s*total|subtotal)\\s*[:\\-]?\\s*([₹$€£]?\\s*\\(?-?[\\d,]+\\.\\d{2}\\)?)"
+        r"(?:sub\s*total|subtotal)\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"
     ])
     tax = amount([
-        r"(?:tax|gst|vat|sales\\s*tax)\\s*[:\\-]?\\s*([₹$€£]?\\s*\\(?-?[\\d,]+\\.\\d{2}\\)?)"
+        r"(?:tax|gst|vat|sales\s*tax)\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"
     ])
     total = amount([
-        r"\\b(?:grand\\s*total|total\\s*due|amount\\s*due|invoice\\s*total|total)\\b\\s*[:\\-]?\\s*([₹$€£]?\\s*\\(?-?[\\d,]+\\.\\d{2}\\)?)"
+        r"\b(?:grand\s*total|total\s*due|amount\s*due|invoice\s*total|total)\b\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"
     ])
     currency = "INR" if "₹" in text or re.search(r"\bINR\b", text, re.I) else (
         "EUR" if "€" in text else "GBP" if "£" in text else "USD" if "$" in text else "USD"
