@@ -3,21 +3,22 @@
 InvoiceFlow is a Python business-automation application that turns PDF invoices into structured, validated financial records. It is designed as a practical portfolio project for small-business accounts payable workflows.
 
 ## Implemented
-- Text-based PDF reading with clear invalid/empty-file errors and scanned-page warnings
+- Multi-file PDF upload with a configurable per-file size limit
+- Text-based PDF reading with invalid/empty-file errors and scanned-page warnings
 - Rule-based extraction of vendor, invoice number, invoice/due dates, currency, subtotal, tax and total
-- Extraction coverage score to guide human review
+- Extraction coverage score and validation findings to guide human review
 - Required-field, positive-total, date-order and subtotal-plus-tax validation
-- Duplicate candidate detection by file SHA-256 and normalized vendor/invoice number
-- SQLite vendor/invoice schema and Streamlit application shell
-- Unit tests for parser, validation and duplicate detection
+- SQLite persistence for vendors and invoices, including incomplete records for later review
+- Duplicate prevention by file SHA-256 and normalized vendor/invoice number
+- Streamlit dashboard with invoice counts, batch-processing results and recent records
+- Automated tests for parsing, validation, persistence, duplicate detection and app startup
 
 ## Planned next
-- Batch upload and persistence workflow
 - OCR support for image-only/scanned invoices
-- Review-and-correct interface
+- Editable review-and-correct workflow
 - Vendor and expense analytics
 - Excel/CSV exports and downloadable reports
-- End-to-end tests and deployment guide
+- Broader end-to-end tests and deployment guide
 
 > **Important:** InvoiceFlow is a decision-support and data-entry aid, not accounting or tax advice. Extracted values must be reviewed before payment or statutory reporting. Rule-based extraction is layout-dependent; OCR is not yet implemented.
 
