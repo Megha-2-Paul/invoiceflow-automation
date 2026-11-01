@@ -53,3 +53,31 @@ def test_duplicate_detection_by_hash_and_invoice_key():
     assert [item["index"] for item in duplicates] == [1, 2]
     assert "Same vendor and invoice number as record 1." in duplicates[0]["reasons"]
     assert "Same file content as record 1." in duplicates[1]["reasons"]
+
+
+def test_parse_whole_number_invoice_amounts():
+    text = """Vendor: Example Supplies
+Invoice Number: EX-100
+Invoice Date: 2026-10-01
+Subtotal: 1000
+GST: 180
+Grand Total: 1180
+"""
+    result = parse_invoice_text(text)
+    assert result["subtotal"] == Decimal("1000")
+    assert result["tax_amount"] == Decimal("180")
+    assert result["total_amount"] == Decimal("1180")
+
+
+def test_parse_amounts_with_one_decimal_place():
+    text = """Vendor: Example Supplies
+Invoice Number: EX-101
+Invoice Date: 2026-10-01
+Subtotal: 100.5
+GST: 18.0
+Grand Total: 118.5
+"""
+    result = parse_invoice_text(text)
+    assert result["subtotal"] == Decimal("100.5")
+    assert result["tax_amount"] == Decimal("18.0")
+    assert result["total_amount"] == Decimal("118.5")
