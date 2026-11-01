@@ -55,7 +55,7 @@ def parse_invoice_text(text: str) -> dict[str, Any]:
     def amount(label_patterns):
         raw = _first(label_patterns, text)
         return _parse_amount(raw)
-    subtotal = amount([r"(?:sub\s*total|subtotal)\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"])
+    total = amount([r"\b(?:grand\s*total|total\s*due|amount\s*due|invoice\s*total|total)\b\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"])
     tax = amount([r"(?:tax|gst|vat|sales\s*tax)\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"])
     total = amount([r"(?:grand\s*total|total\s*due|amount\s*due|invoice\s*total|total)\s*[:\-]?\s*([₹$€£]?\s*\(?-?[\d,]+\.\d{2}\)?)"])
     currency = "INR" if "₹" in text or re.search(r"\bINR\b", text, re.I) else (
